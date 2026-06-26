@@ -19,7 +19,6 @@ public class AnalyticsService : IAnalyticsService
 
     public async Task<AttendanceAnalyticsDto> GetAnalyticsAsync(CancellationToken ct)
     {
-        // Берём из кэша если есть
         if (_cache.TryGetValue(CacheKey, out AttendanceAnalyticsDto? cached))
             return cached!;
 
@@ -61,7 +60,6 @@ public class AnalyticsService : IAnalyticsService
             activeGroups
         );
 
-        // Кэшируем на 10 минут
         _cache.Set(CacheKey, result, TimeSpan.FromMinutes(10));
 
         return result;
@@ -74,12 +72,12 @@ public class AnalyticsService : IAnalyticsService
         var sb = new StringBuilder();
 
         // Заголовок CSV
-        sb.AppendLine("Id,UserId,UserName,Type,Source,Description,Severity,CreatedAt");
+        sb.AppendLine("Id,UserId,UserName,StudentName,Type,Source,Description,Severity,CreatedAt");
 
         // Данные
         foreach (var r in all)
         {
-            sb.AppendLine($"{r.Id},{r.UserId},{r.User?.UserName ?? "Неизвестно"},{r.Type},{r.Source},{r.Description},{r.Severity},{r.CreatedAt:yyyy-MM-dd HH:mm:ss}");
+            sb.AppendLine($"{r.Id},{r.UserId},{r.User?.UserName ?? "Неизвестно"},{r.StudentName},{r.Type},{r.Source},{r.Description},{r.Severity},{r.CreatedAt:yyyy-MM-dd HH:mm:ss}");
         }
 
         return Encoding.UTF8.GetBytes(sb.ToString());

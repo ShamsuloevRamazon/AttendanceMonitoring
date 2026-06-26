@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "YRlRXkiQ3PbUGAi7LC6UUgmddaSggLdBVx4Ppcnbj0c=",
+  "Source": "AttendanceMonitoring.Api",
+  "BasePath": "_content/AttendanceMonitoring.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

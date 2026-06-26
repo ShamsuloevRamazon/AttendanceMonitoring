@@ -1,0 +1,15 @@
+C:\Users\romas\AttendanceMonitoring\AttendanceMonitoring.Application\bin\Debug\net8.0\AttendanceMonitoring.Application.deps.json
+C:\Users\romas\AttendanceMonitoring\AttendanceMonitoring.Application\bin\Debug\net8.0\AttendanceMonitoring.Application.dll
+C:\Users\romas\AttendanceMonitoring\AttendanceMonitoring.Application\bin\Debug\net8.0\AttendanceMonitoring.Application.pdb
+C:\Users\romas\AttendanceMonitoring\AttendanceMonitoring.Application\bin\Debug\net8.0\AttendanceMonitoring.Domain.dll
+C:\Users\romas\AttendanceMonitoring\AttendanceMonitoring.Application\bin\Debug\net8.0\AttendanceMonitoring.Domain.pdb
+C:\Users\romas\AttendanceMonitoring\AttendanceMonitoring.Application\obj\Debug\net8.0\AttendanceMonitoring.Application.csproj.AssemblyReference.cache
+C:\Users\romas\AttendanceMonitoring\AttendanceMonitoring.Application\obj\Debug\net8.0\AttendanceMonitoring.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\romas\AttendanceMonitoring\AttendanceMonitoring.Application\obj\Debug\net8.0\AttendanceMonitoring.Application.AssemblyInfoInputs.cache
+C:\Users\romas\AttendanceMonitoring\AttendanceMonitoring.Application\obj\Debug\net8.0\AttendanceMonitoring.Application.AssemblyInfo.cs
+C:\Users\romas\AttendanceMonitoring\AttendanceMonitoring.Application\obj\Debug\net8.0\AttendanceMonitoring.Application.csproj.CoreCompileInputs.cache
+C:\Users\romas\AttendanceMonitoring\AttendanceMonitoring.Application\obj\Debug\net8.0\Attendan.A579BEB3.Up2Date
+C:\Users\romas\AttendanceMonitoring\AttendanceMonitoring.Application\obj\Debug\net8.0\AttendanceMonitoring.Application.dll
+C:\Users\romas\AttendanceMonitoring\AttendanceMonitoring.Application\obj\Debug\net8.0\refint\AttendanceMonitoring.Application.dll
+C:\Users\romas\AttendanceMonitoring\AttendanceMonitoring.Application\obj\Debug\net8.0\AttendanceMonitoring.Application.pdb
+C:\Users\romas\AttendanceMonitoring\AttendanceMonitoring.Application\obj\Debug\net8.0\ref\AttendanceMonitoring.Application.dll

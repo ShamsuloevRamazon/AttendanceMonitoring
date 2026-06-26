@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\AttendanceMonitoring.Api.props" />
-</Project>

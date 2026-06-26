@@ -18,6 +18,10 @@ public class AttendanceRepository : IAttendanceRepository
     {
         _db.AttendanceRecords.Add(record);
         await _db.SaveChangesAsync(ct);
+
+        // Подгружаем пользователя чтобы userName не был "Неизвестно"
+        await _db.Entry(record).Reference(r => r.User).LoadAsync(ct);
+
         return record;
     }
 

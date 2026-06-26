@@ -1,5 +1,7 @@
+using System.Security.Claims;
 using AttendanceMonitoring.Application.Attendance.DTOs;
 using AttendanceMonitoring.Application.Attendance.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AttendanceMonitoring.Api.Controllers;
@@ -23,27 +25,34 @@ public class AttendanceController : ControllerBase
         [FromQuery] DateTime? from,
         [FromQuery] DateTime? to,
         [FromQuery] int? userId,
+        [FromQuery] string? studentName,
         CancellationToken ct)
     {
-        _logger.LogInformation("Запрос списка записей. Фильтр: тип={Type}, с={From}, по={To}", type, from, to);
-        var filter = new AttendanceFilter(type, from, to, userId);
+        _logger.LogInformation("Запрос списка записей. Фильтр: тип={Type}, студент={StudentName}", type, studentName);
+        var filter = new AttendanceFilter(type, from, to, userId, studentName);
         var result = await _service.GetAsync(filter, ct);
         _logger.LogInformation("Возвращено записей: {Count}", result.Count);
         return Ok(result);
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Create(
         [FromBody] CreateAttendanceRequest request,
         CancellationToken ct)
     {
-        _logger.LogInformation("Создание записи: тип={Type}, источник={Source}", request.Type, request.Source);
-        var result = await _service.CreateAsync(request, userId: 1, ct);
+        // Берём userId из JWT токена автоматически
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var userId = int.Parse(userIdClaim ?? "1");
+
+        _logger.LogInformation("Создание записи: студент={StudentName}, тип={Type}", request.StudentName, request.Type);
+        var result = await _service.CreateAsync(request, userId, ct);
         _logger.LogInformation("Запись создана с Id={Id}", result.Id);
         return CreatedAtAction(nameof(GetAll), new { id = result.Id }, result);
     }
 
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> Delete(int id, CancellationToken ct)
     {
         _logger.LogInformation("Удаление записи Id={Id}", id);

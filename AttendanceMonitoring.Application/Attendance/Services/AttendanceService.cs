@@ -22,6 +22,7 @@ public class AttendanceService : IAttendanceService
         var record = new AttendanceRecord
         {
             UserId = userId,
+            StudentName = request.StudentName,
             Type = request.Type,
             Source = request.Source,
             Description = request.Description,
@@ -30,14 +31,13 @@ public class AttendanceService : IAttendanceService
         };
 
         var saved = await _repo.AddAsync(record, ct);
-
-        // Сбрасываем кэш при добавлении новой записи
         _cache.Remove(CacheKey);
 
         return new AttendanceRecordDto(
             saved.Id,
             saved.UserId,
             saved.User?.UserName ?? "Неизвестно",
+            saved.StudentName,
             saved.Type,
             saved.Source,
             saved.Description,
@@ -48,11 +48,9 @@ public class AttendanceService : IAttendanceService
 
     public async Task<IReadOnlyList<AttendanceRecordDto>> GetAsync(AttendanceFilter filter, CancellationToken ct)
     {
-        // Берём все записи из кэша или из базы
         if (!_cache.TryGetValue(CacheKey, out IReadOnlyList<AttendanceRecord>? all))
         {
             all = await _repo.GetAllAsync(ct);
-
             _cache.Set(CacheKey, all, TimeSpan.FromMinutes(5));
         }
 
@@ -70,10 +68,14 @@ public class AttendanceService : IAttendanceService
         if (filter.UserId.HasValue)
             filtered = filtered.Where(r => r.UserId == filter.UserId.Value);
 
+        if (!string.IsNullOrEmpty(filter.StudentName))
+            filtered = filtered.Where(r => r.StudentName.Contains(filter.StudentName));
+
         return filtered.Select(r => new AttendanceRecordDto(
             r.Id,
             r.UserId,
             r.User?.UserName ?? "Неизвестно",
+            r.StudentName,
             r.Type,
             r.Source,
             r.Description,
@@ -85,10 +87,7 @@ public class AttendanceService : IAttendanceService
     public async Task<bool> DeleteAsync(int id, CancellationToken ct)
     {
         var result = await _repo.DeleteAsync(id, ct);
-
-        // Сбрасываем кэш при удалении
         if (result) _cache.Remove(CacheKey);
-
         return result;
     }
 }
